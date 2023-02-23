@@ -62,46 +62,83 @@ def insertionsort(arr):
 
 # Generate random arrays to sort
 sizes = [10000, 50000, 100000, 200000, 500000]
+sizes1 = [100, 500, 1000, 2000, 2500]
 arrays = {}
 for size in sizes:
     arrays[size] = [random.randint(1, size) for _ in range(size)]
 
+for size in sizes1:
+    arrays[size] = [random.randint(1, size) for _ in range(size)]
 # Sort the arrays with each algorithm and record the runtimes
 quicksort_times = []
 mergesort_times = []
 heapsort_times = []
 insertionsort_times = []
 
-for size in sizes:
+for size in sizes1:
     array = arrays[size]
     start_time = time.time()
-    quicksort(array)
+    quicksort(array.copy())
     end_time = time.time()
     quicksort_times.append(end_time - start_time)
 
     array = arrays[size]
     start_time = time.time()
-    mergesort(array)
+    mergesort(array.copy())
     end_time = time.time()
     mergesort_times.append(end_time - start_time)
 
     array = arrays[size]
     start_time = time.time()
-    heapsort(array)
+    heapsort(array.copy())
     end_time = time.time()
     heapsort_times.append(end_time - start_time)
 
     array = arrays[size]
     start_time = time.time()
-    insertionsort(array)
+    insertionsort(array.copy())
     end_time = time.time()
     insertionsort_times.append(end_time - start_time)
 
 
+plt.plot(sizes1, quicksort_times, label="Quicksort")
+plt.plot(sizes1, mergesort_times, label="Mergesort")
+plt.plot(sizes1, heapsort_times, label="Heapsort")
+plt.plot(sizes1, insertionsort_times, label="insertionsort")
+plt.xlabel("Array Size")
+plt.ylabel("Runtime (Seconds)")
+plt.legend()
+plt.show()
+
+for size in sizes1:
+    arrays[size] = [random.randint(1, size) for _ in range(size)]
+
+quicksort_times = []
+mergesort_times = []
+heapsort_times = []
+
+for size in sizes:
+    array = arrays[size]
+    start_time = time.time()
+    quicksort(array.copy())
+    end_time = time.time()
+    quicksort_times.append(end_time - start_time)
+
+    array = arrays[size]
+    start_time = time.time()
+    mergesort(array.copy())
+    end_time = time.time()
+    mergesort_times.append(end_time - start_time)
+
+    array = arrays[size]
+    start_time = time.time()
+    heapsort(array.copy())
+    end_time = time.time()
+    heapsort_times.append(end_time - start_time)
+
 plt.plot(sizes, quicksort_times, label="Quicksort")
 plt.plot(sizes, mergesort_times, label="Mergesort")
 plt.plot(sizes, heapsort_times, label="Heapsort")
-plt.plot(sizes, insertionsort_times, label="insertionsort")
 plt.xlabel("Array Size")
 plt.ylabel("Runtime (Seconds)")
 plt.legend()
